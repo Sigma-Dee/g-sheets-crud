@@ -44,25 +44,6 @@ export default function Home() {
     localStorage.setItem("notes", JSON.stringify(notes))
   }, [notes])
 
-  const formattedDate = (date: Date): string => {
-    const now = new Date();
-    const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-    const minutes = Math.floor(seconds / 60);
-    //const hours = Math.floor(minutes / 60);
-    //const days = Math.floor(hours / 24);
-
-    if (seconds < 60) {
-      return 'Just now';
-    }
-
-    if (minutes < 60) {
-      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-    }
-
-    return '';
-
-  }
-
   const createNote = () => {
     if (newNote.title.trim() || newNote.content.trim()) {
       const note: Note = {
@@ -138,6 +119,25 @@ export default function Home() {
       minute: "2-digit",
     }).format(date)
   }*/
+
+  const formatDate = (date: Date): string => {
+    const now = new Date();
+    const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+    const minutes = Math.floor(seconds / 60);
+    //const hours = Math.floor(minutes / 60);
+    //const days = Math.floor(hours / 24);
+
+    if (seconds < 60) {
+      return 'Just now';
+    }
+
+    if (minutes < 60) {
+      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    }
+
+    return 'timestamp';
+
+  }
 
   return (
       <div className="min-h-screen bg-background">
@@ -316,7 +316,7 @@ export default function Home() {
                                 )}
 
                                 <div className="flex items-center justify-between mt-3">
-                                  <span className="text-xs text-muted-foreground">{formattedDate(note.createdAt)}</span>
+                                  <span className="text-xs text-muted-foreground">{formatDate(note.createdAt)}</span>
 
                                   <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
