@@ -110,16 +110,6 @@ export default function Home() {
     return matchesSearch && matchesArchiveFilter
   })
 
-  /*const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(date)
-  }*/
-
   const formatDate = (date: Date): string => {
     const now = new Date();
     const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
@@ -132,10 +122,16 @@ export default function Home() {
     }
 
     if (minutes < 60) {
-      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+      return `${minutes} min${minutes > 1 ? 's' : ''} ago`;
     }
 
-    return 'timestamp';
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(date)
 
   }
 
