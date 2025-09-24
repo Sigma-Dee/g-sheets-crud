@@ -31,7 +31,7 @@ export default function Home() {
   useEffect(() => {
     const savedNotes = localStorage.getItem("notes")
     if (savedNotes) {
-      const parsedNotes = JSON.parse(savedNotes).map((note: any) => ({
+      const parsedNotes = JSON.parse(savedNotes).map((note: Note) => ({
         ...note,
         createdAt: new Date(note.createdAt),
       }))
